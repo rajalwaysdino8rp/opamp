@@ -1,0 +1,9 @@
+fastapi
+python-protobuf
+loguru
+pydantic
+prometheus_client
+Jinja2
+protobuf
+uvicorn[standard]
+gunicorn

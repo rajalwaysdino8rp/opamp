@@ -20,9 +20,28 @@ def get_agents():
         if resp.status_code == 200:
             return resp.json()
         else:
-            return list()
-    except:
-        logger.info("Server is not available...")
+            # Server is up but returned a non-200 status
+            return list() 
+    except requests.exceptions.ConnectionError:
+        # Server is not available (connection failed)
+        logger.error(f"Server is not available at {SERVER_ADDR}:{SERVER_PORT}")
+        # **ADD THE RETURN STATEMENT HERE**
+        return list()
+    except Exception as e:
+        # Catch other potential errors (e.g., JSON decode errors)
+        logger.error(f"An unexpected error occurred: {e}")
+        return list()
+#def get_agents():
+#    try:
+#        resp = requests.get(f"{SERVER_HTTP_SCHEME}://{SERVER_ADDR}:{SERVER_PORT}/agents")
+        
+#        if resp.status_code == 200:
+#            return resp.json()
+#        else:
+#            return list()
+#    except:
+#        logger.info("Server is not available...")
+
 
 agents = get_agents()
 st.title(PAGE_TITLE_AGENTS)

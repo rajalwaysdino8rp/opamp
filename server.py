@@ -111,6 +111,10 @@ async def opamp_endpoint(request: Request):
 ##############################################
 # ENDPOINTS
 ##############################################
+@app.get("/health")
+async def health_check():
+    """Simple endpoint for Kubernetes Liveness and Readiness probes."""
+    return {"status": "ok"}
 
 @app.get("/agents")
 def show_all_agents(request: Request):
